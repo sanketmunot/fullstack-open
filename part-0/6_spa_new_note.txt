@@ -1,0 +1,48 @@
+title New note
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+Server-->Client: HTML-code
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server-->Client: main.css
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server-->Client: main.js
+
+note over Client:
+Client starts executing js-code
+that requests JSON data from Server 
+end note
+
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+Server-->Client: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
+
+note over Client:
+Client executes the event handler
+that renders notes to display
+end note
+note left of Client
+    User fills the note and 
+    hits the submit button
+end note
+Client->Server: POST request submitted
+note right of Server
+    Server receives the payload
+    and stores it in DB
+end note
+Server-->Client: Response with status 201
+note over Client,Server: 201: Status created
+note left of Client
+    On 201, GET request is fired
+    from same component
+    to get new list of notes
+end note
+Client->Server: GET request
+note over Client,Server: Fetch notes
+Server-->Client: Response
+note over Client,Server: Payload with list of notes
+note left of Client
+    Rerender only notes list/component
+    not whole html page
+end note
+
+
+
+
